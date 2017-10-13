@@ -1,0 +1,74 @@
+h2{
+color: #1B90DD;
+text-align: center;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-container {
+  
+    display:block;
+    width:90%;
+    padding:2em;
+    margin: 2em auto;
+    margin-top: 15px;
+    background-color: white;
+    
+}
+h5 {
+    color: #d86f6f;
+}
+
+p {
+    color:#026f02;
+}
+
+.row-colums {
+
+    background-color: #D6DFB1;
+}
+.col {
+
+    color:gray;
+}
+
+.todo-container {
+    display:block;
+    width:90%;
+    padding:0.5em;
+    margin-bottom: 5px;
+    margin: 0.5em auto;
+    background:#fff;
+   
+}
+
+.todo-btn{
+    float: right;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
+    width: 75px;
+}
+
+.button.expanded {
+    display:block;
+    width:90%;
+    margin: 2em auto;
+    margin-top: 15px;
+    background-color: #ba1780;
+}
+
+
+.button.expanded:hover {
+    background-color: #D38ED3;
+}
+.alert {
+    background: #EE2805;
+    color:white;
+    padding: 7px;
+    font-size: .9em;
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: 2s alertAnim forwards;
+
+
+}
