@@ -1,5 +1,6 @@
+
 h2{
-color: #1B90DD;
+color: #ffffff;
 text-align: center;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -12,19 +13,20 @@ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 2em auto;
     margin-top: 15px;
     background-color: white;
+    border: 5px solid #42A5F5;
     
 }
 h5 {
-    color: #d86f6f;
+    color: hsl(323, 57%, 64%);
 }
 
 p {
-    color:#026f02;
+    color:blueviolet;
 }
 
 .row-colums {
 
-    background-color: #D6DFB1;
+    background-color: #E3ECF3;
 }
 .col {
 
@@ -37,7 +39,8 @@ p {
     padding:0.5em;
     margin-bottom: 5px;
     margin: 0.5em auto;
-    background:#fff;
+    background:#ffffff;
+    border: 5px solid #42A5F5;
    
 }
 
@@ -50,9 +53,7 @@ p {
 }
 
 .button.expanded {
-    display:block;
-    width:90%;
-    margin: 2em auto;
+    display: block;
     margin-top: 15px;
     background-color: #ba1780;
 }

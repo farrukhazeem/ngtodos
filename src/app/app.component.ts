@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-//import { AngularFire, AuthProviders, AuthMethods, FirebaseListObservable } from 'angularfire2';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase/app';
@@ -15,7 +14,7 @@ export class AppComponent {
   todosRef: AngularFireList<any>;
   currentTodo: FormGroup;
   todos: Observable<any[]>;
-  editTodos = { title: '', description: '' };
+  editTodos = { key: '', title: '', description: '' };
   editMode = false;
   currentTodoKey;
 
@@ -28,28 +27,31 @@ export class AppComponent {
     this.todos = this.todosRef.snapshotChanges().map(changes => {
         return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
     })
-   // db.list('/todos').snapshotChanges();
   }
 
  addTodo(todo) {
   this.db.list('/todos').push(todo);
- 
- //  addTodo(title: String) {
-    // this.todosRef.push({text: title});
-
+  this.currentTodo.reset();
 }
 
   deleteTodo(key: string) {
-    // console.warn(todo)
-    // const promise = this.db.object(`todos/${todo.key}`).remove();
-    // promise.then(_ => console.log('success'))
-    //   .catch(err => console.log(err, 'You dont have access!'));
-      this.todosRef.remove(key);
+    this.todosRef.remove(key);
   }
 
   editTodo(todo){
-      this.todos.forEach((todo) => {
-        console.log(todo);
-      })
+    this.editMode = true;
+    this.editTodos = { key: todo.key, title: todo.title, description: todo.description };
   }
+
+  cancelEdit() {
+    this.editMode = false;
+  }
+
+  updateEditedTodo() {
+    const editedTodo = this.editTodos;
+    this.todosRef = this.db.list('todos');
+    this.todosRef.set(editedTodo.key, {title: editedTodo.title, description: editedTodo.description} );
+    this.editMode = false;
+  }
+  
 }

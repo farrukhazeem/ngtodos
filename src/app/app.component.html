@@ -1,31 +1,53 @@
-<h2>ANGULAR TODO</h2>
+<div *ngIf="!editMode">
+  <h2>ANGULAR TODO</h2>
 
-<form [formGroup]="currentTodo" (ngSubmit)="addTodo(currentTodo.value)">
+  <form [formGroup]="currentTodo" (ngSubmit)="addTodo(currentTodo.value)">
     <div class="form-container col">
-<label for="title"></label>
-  Title
-  <input type="text" formControlName="title" placeholder="Add Title">
-  <div class="alert" *ngIf="!currentTodo.controls['title'].valid && currentTodo.controls['title'].touched">This Field is Required and minimum 5 max 50 alphabets are required</div>    
+      <label for="title"></label> Title
+      <input type="text" formControlName="title" placeholder="Add Title">
+      <div class="alert" *ngIf="!currentTodo.controls['title'].valid && currentTodo.controls['title'].touched">This Field is Required and minimum 5 max 50 alphabets are required</div>
 
-<label for="description"></label>
-Description
-<textarea formControlName="description" placeholder="Add Todo Description"></textarea>
-<label for="description"></label>
-<div class="alert" *ngIf="!currentTodo.controls['description'].valid && currentTodo.controls['description'].touched">This Field is Required and minimum 5 max 300 alphabets are required</div>
-</div>
-<input type="submit" class="button expanded" value="Add Todo" [disabled]="!currentTodo.valid">
-</form>
+      <label for="description"></label> Description
+      <textarea formControlName="description" placeholder="Add Todo Description"></textarea>
+      <label for="description"></label>
+      <div class="alert" *ngIf="!currentTodo.controls['description'].valid && currentTodo.controls['description'].touched">This Field is Required and minimum 5 max 300 alphabets are required</div>
+      <input type="submit" class="button expanded" value="Add Todo" [disabled]="!currentTodo.valid">
+    </div>
+  </form>
 
-<div  class="todo-container">
-   <div class="todolist-container" id="list" *ngFor="let todo of todos | async; let i = index" >
-        <div class="row-colums" >
-          <button class="button btn-danger todo-btn" (click)="deleteTodo(todo.key)">Delete</button>
-          <button class="button todo-btn" (click)="editTodo(todo.key)">Edit</button>
-          <h5>{{todo.title }}</h5>
-          <p>{{todo.description}}
-        </div>
+  <div class="todo-container">
+    <div class="todolist-container" id="list" *ngFor="let todo of todos | async; let i = index">
+      <div class="row-colums">
+        <button class="button btn-danger todo-btn" (click)="deleteTodo(todo.key)">Delete</button>
+        <button class="button todo-btn" (click)="editTodo(todo)">Edit</button>
+        <h5>{{todo.title }}</h5>
+        <p>{{todo.description}}
       </div>
-  
+    </div>
 
+  </div>
+</div>
 
-<div *ngIf="editMode"></div>
+<div *ngIf="editMode">
+  <form #commentForm="ngForm" novalidate>
+    <div class="form-container">
+      <label for="name">Title</label>
+      <input type="text" [(ngModel)]="editTodos.title" #title="ngModel" name="title" id="title" class="form-control" maxlength="50"
+        required/>
+      <div *ngIf="title.errors && (title.dirty || title.touched)" class="alert alert-danger">
+        <div [hidden]="!title.errors.required">Title is Required!</div>
+      </div>
+
+      <label for="name">Your Description</label>
+      <textarea id="description" [(ngModel)]="editTodos.description" #description="ngModel" name="description" class="form-control"
+        rows="5" required></textarea>
+      <!--Validation Divs For Comment-->
+      <div *ngIf="description.errors && (description.dirty || description.touched)" class="alert alert-danger">
+        <div [hidden]="!description.errors.required">Desctiption is Required!</div>
+      </div>
+
+      <button type="submit" [disabled]="!commentForm.form.valid" class="button" (click)="updateEditedTodo()">Update</button>
+      <button type="button" class="button" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </form>
+</div>
